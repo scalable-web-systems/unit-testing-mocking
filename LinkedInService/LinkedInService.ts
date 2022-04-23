@@ -8,18 +8,18 @@ export class LinkedInService {
         this._usersRepository = usersRepository
     }
 
-    getConnectionDegree = async (connectionId: number): Promise<number> => {
-        const userId = 1
+    getConnectionDegree = async (userId: number): Promise<number> => {
+        const startUserId = 1
         
         // DFS business logic
         const visitedIds = new Set<number>()
         let depth = 0
         const store = new Array<number>();
-        store.push(userId)
+        store.push(startUserId)
 
         while (store.length !== 0) {
             const poppedId = store.pop()
-            if (poppedId === connectionId) {
+            if (poppedId === userId) {
                 break
             }
             if (!visitedIds.has(poppedId!)) {
