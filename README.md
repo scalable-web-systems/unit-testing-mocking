@@ -2,7 +2,7 @@
 > **Author -** Ishaan Khurana, [LinkedIn](https://www.linkedin.com/in/ishaan-khurana-46968679/)
 
 ## Objective
-This tutorial explains the mocking and it's utility in writing unit tests. We'll be using [FluffySpoon's Substitute](https://github.com/ffMathy/FluffySpoon.JavaScript.Testing.Faking)
+This tutorial explains mocking and it's utility in writing unit tests. We'll be using [FluffySpoon's Substitute](https://github.com/ffMathy/FluffySpoon.JavaScript.Testing.Faking)
 to mock an interface and use it to instantitate a service class.
 
 ## Prerequisites
