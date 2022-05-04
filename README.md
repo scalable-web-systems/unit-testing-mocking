@@ -144,7 +144,59 @@ Before starting writing our tests, we're defining two arrays to store our users 
                 })
 ```
 
+After mimicking all the repository methods, we define **describe** blocks for each service method. Note the following code snippet at the beginning of every **describe** block:
 
+```
+                beforeEach(() => {
+                    testUserJoins = []
+                    testUsers = []
+                    for (let i=0; i<20; ++i) {
+                        testUsers.push({
+                            id: i,
+                            name: faker.name.findName()
+                        })
+                    }
+                })
+```
+
+This code snippet ensures that all the data is wiped out from the joins and the users arrays, and that 20 random users are pushed to users array, before every test.
+
+The unit tests themselves are wrapped inside of **it** blocks and are pretty straightforward. In you inspect the code in **LinkedInService.ts**, you'd note that the starting user id for the DFS algorithm is hard-coded to 1 as opposed to being extracted from an identity service.
+
+```
+    getConnectionDegree = async (connectionId: number): Promise<number> => {
+        const userId = 1
+        
+        // DFS business logic
+        const visitedIds = new Set<number>()
+        let depth = 0
+        const store = new Array<number>();
+        store.push(userId)
+
+```
+
+In a real application, the job to get the id of the logged in user is usually outsourced to an external dependency. This task is intentionally left as an exercise for the readers. Try creating a simple class called **IdentityService.ts** that perhaps accepts a JWT token, validates it, and returns a user id. Then, in order to test **LinkedInService.ts**, mock **IdentityService.ts** and supply the mocked class as an argument to the constructor of **LinkedInService.ts** while instantiating it.
+
+## Steps
+
+1. Clone the repository and cd into the project directory.
+2. Run `npm install` to install all the related dependencies and then `npm test` to run the unit tests. You should get a similar output:
+
+<img width="908" alt="image" src="https://user-images.githubusercontent.com/7733516/166746000-c4ae0a1a-73b0-4ec5-af5a-6ff84c70d98f.png">
+
+Additionally, the coverage report can be accessed by opening the `coverage/lcov-report/index.html` in a browser. You should see a similar output:
+
+<img width="1438" alt="image" src="https://user-images.githubusercontent.com/7733516/166747292-454b753f-ae08-459e-a872-c40e9b93b670.png">
+
+> index.html
+
+<img width="1309" alt="image" src="https://user-images.githubusercontent.com/7733516/166747435-44628590-e61b-4c79-8ebf-040684ff3f1c.png">
+
+> LinkedInService.ts.html
+
+<img width="811" alt="image" src="https://user-images.githubusercontent.com/7733516/166747476-431a749e-d798-4455-afbc-8a22d86cfe4f.png">
+
+> LinkedInService.ts.html
 
 ## Links
 1. [Defition of Mocking](https://circleci.com/blog/how-to-test-software-part-i-mocking-stubbing-and-contract-testing/)
